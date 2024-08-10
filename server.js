@@ -1,4 +1,6 @@
 import express from "express";
+import serviceRouter from "./routing/service-router.js";
+
 import { dbConfig } from "./common/db-config.js";
 
 const app = express();
@@ -7,6 +9,9 @@ app.use(express.json());
 import cors from "cors";
 
 app.use(cors());
+
+// Routers
+app.use("/services", serviceRouter);
 
 dbConfig
   .initialize()

@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import Service from "../models/service-model.js";
 
 const dbConfig = new DataSource({
   type: "mysql",
@@ -7,7 +8,7 @@ const dbConfig = new DataSource({
   username: "root",
   password: "12345",
   database: "my_dentist",
-  entities: [],
+  entities: [Service],
 });
 
 export { dbConfig };
