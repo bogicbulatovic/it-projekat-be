@@ -1,6 +1,7 @@
 import express from "express";
 import serviceRouter from "./routing/service-router.js";
 import ratingRouter from "./routing/rating-router.js";
+import userRouter from "./routing/user-router.js";
 
 import { dbConfig } from "./common/db-config.js";
 
@@ -14,6 +15,7 @@ app.use(cors());
 // Routers
 app.use("/services", serviceRouter);
 app.use("/ratings", ratingRouter);
+app.use("/users", userRouter);
 
 dbConfig
   .initialize()
