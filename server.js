@@ -1,5 +1,6 @@
 import express from "express";
 import serviceRouter from "./routing/service-router.js";
+import ratingRouter from "./routing/rating-router.js";
 
 import { dbConfig } from "./common/db-config.js";
 
@@ -12,6 +13,7 @@ app.use(cors());
 
 // Routers
 app.use("/services", serviceRouter);
+app.use("/ratings", ratingRouter);
 
 dbConfig
   .initialize()
