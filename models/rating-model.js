@@ -19,7 +19,7 @@ export default new EntitySchema({
     },
     rating: {
       type: "int",
-      nullable: true,
+      nullable: false,
       default: null,
     },
     comment: {
@@ -35,6 +35,29 @@ export default new EntitySchema({
       type: "timestamp",
       default: () => "CURRENT_TIMESTAMP",
       onUpdate: "CURRENT_TIMESTAMP",
+    },
+  },
+  checks: [
+    {
+      expression: `"rating" >= 1 AND "rating" <= 5`,
+    },
+  ],
+  relations: {
+    patient: {
+      type: "many-to-one",
+      target: "User",
+      joinColumn: {
+        name: "patient_id",
+      },
+      nullable: false,
+    },
+    dentist: {
+      type: "many-to-one",
+      target: "User",
+      joinColumn: {
+        name: "dentist_id",
+      },
+      nullable: false,
     },
   },
 });

@@ -9,14 +9,6 @@ export default new EntitySchema({
       type: "int",
       generated: true,
     },
-    patient_id: {
-      type: "int",
-      nullable: false,
-    },
-    dentist_id: {
-      type: "int",
-      nullable: false,
-    },
     total_price: {
       type: "decimal",
       precision: 10,
@@ -35,6 +27,26 @@ export default new EntitySchema({
       type: "timestamp",
       default: () => "CURRENT_TIMESTAMP",
       onUpdate: "CURRENT_TIMESTAMP",
+    },
+  },
+  relations: {
+    patient: {
+      type: "many-to-one",
+      target: "User",
+      joinColumn: {
+        name: "patient_id",
+      },
+      nullable: false,
+      onDelete: "CASCADE",
+    },
+    dentist: {
+      type: "many-to-one",
+      target: "User",
+      joinColumn: {
+        name: "dentist_id",
+      },
+      nullable: false,
+      onDelete: "CASCADE",
     },
   },
 });

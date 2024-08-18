@@ -9,14 +9,6 @@ export default new EntitySchema({
       type: "int",
       generated: true,
     },
-    appointment_id: {
-      type: "int",
-      nullable: false,
-    },
-    service_id: {
-      type: "int",
-      nullable: false,
-    },
     created_at: {
       type: "timestamp",
       default: () => "CURRENT_TIMESTAMP",
@@ -25,6 +17,24 @@ export default new EntitySchema({
       type: "timestamp",
       default: () => "CURRENT_TIMESTAMP",
       onUpdate: "CURRENT_TIMESTAMP",
+    },
+  },
+  relations: {
+    appointment: {
+      type: "many-to-one",
+      target: "Appointment", // Referencing the Appointment entity
+      joinColumn: {
+        name: "appointment_id", // Foreign key in this table
+      },
+      onDelete: "CASCADE", // When an Appointment is deleted, delete related AppointmentService records
+    },
+    service: {
+      type: "many-to-one",
+      target: "Service", // Referencing the Service entity
+      joinColumn: {
+        name: "service_id", // Foreign key in this table
+      },
+      onDelete: "CASCADE", // When a Service is deleted, delete related AppointmentService records
     },
   },
 });

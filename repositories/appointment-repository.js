@@ -5,7 +5,9 @@ const appointmentRepository = dbConfig.getRepository(Appointment);
 
 async function getAll() {
   try {
-    const result = await appointmentRepository.find(); // same as SELECT * FROM appointments
+    const result = await appointmentRepository.find({
+      relations: ["patient", "dentist"], // Pridruži pacijenta i zubara terminima
+    });
     return result;
   } catch (err) {
     console.log(err);
@@ -14,7 +16,10 @@ async function getAll() {
 
 async function getOne(id) {
   try {
-    const result = await appointmentRepository.findOneBy({ id }); // SELECT * FROM appointments WHERE ID = X
+    const result = await appointmentRepository.findOne({
+      where: { id },
+      relations: ["patient", "dentist"], // Pridruži pacijenta i zubara za pojedinačni termin
+    });
     return result;
   } catch (err) {
     console.log(err);
@@ -23,7 +28,7 @@ async function getOne(id) {
 
 async function create(appointment) {
   try {
-    const result = await appointmentRepository.insert(appointment); // INSERT INTO appointments...
+    const result = await appointmentRepository.insert(appointment);
     return {
       success: true,
       result,
