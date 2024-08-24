@@ -4,6 +4,7 @@ import ratingRouter from "./routing/rating-router.js";
 import userRouter from "./routing/user-router.js";
 import appointmentRouter from "./routing/appointment-router.js";
 import appointmentServiceRouter from "./routing/appointmentService-router.js";
+import authRouter from "./routing/auth-router.js";
 
 import { dbConfig } from "./common/db-config.js";
 
@@ -15,11 +16,12 @@ import cors from "cors";
 app.use(cors());
 
 // Routers
+app.use("/", authRouter);
 app.use("/services", serviceRouter);
 app.use("/ratings", ratingRouter);
 app.use("/users", userRouter);
 app.use("/appointments", appointmentRouter);
-app.use("/appointmentServices", appointmentServiceRouter);
+app.use("/appointment-services", appointmentServiceRouter);
 
 dbConfig
   .initialize()

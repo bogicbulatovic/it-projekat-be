@@ -1,5 +1,19 @@
 import userRepository from "../repositories/user-repository.js";
 
+async function login(request, response) {
+  const result = await userRepository.login(request.body);
+
+  if (!result.success) response.sendStatus(404);
+  else response.send(result);
+}
+
+async function register(request, response) {
+  const result = await userRepository.register(request.body);
+
+  if (!result.success) response.sendStatus(404);
+  else response.send(result);
+}
+
 async function getAllUsers(request, response) {
   const allUsers = await userRepository.getAll();
   response.send(allUsers);
@@ -29,6 +43,8 @@ async function removeUser(request, response) {
 }
 
 export default {
+  login,
+  register,
   getAllUsers,
   getUserById,
   createUser,
