@@ -12,10 +12,12 @@ export default new EntitySchema({
     patient_id: {
       type: "int",
       nullable: false,
+      select: false,
     },
     dentist_id: {
       type: "int",
       nullable: false,
+      select: false,
     },
     rating: {
       type: "int",
