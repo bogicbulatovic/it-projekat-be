@@ -18,13 +18,13 @@ async function login(user) {
     },
   });
 
-  const isAdmin = loggedUser.role === "admin";
+  const { role } = loggedUser;
 
   if (loggedUser) {
     const token = jwt.sign(
       {
         email: user.email,
-        isAdmin,
+        role,
       },
       "secret",
       {
@@ -46,12 +46,13 @@ async function register(user) {
     .digest("hex");
 
   const result = await userRepository.insert(user);
+  const { role } = user;
 
   if (result.raw.affectedRows > 0) {
     const token = jwt.sign(
       {
         email: user.email,
-        isAdmin: user.role === "admin",
+        role,
       },
       "secret",
       {
