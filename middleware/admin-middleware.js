@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 function adminMiddleware(req, res, next) {
-  const token = req.headers.authorization.split(" ")[1];
+  const token = req.headers.authorization?.split(" ")[1];
   const { role } = jwt.verify(token, "secret");
   if (role && role === "admin") return next(); // User is an admin, proceed to the next middleware or route handler
 

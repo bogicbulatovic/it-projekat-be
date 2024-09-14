@@ -1,7 +1,10 @@
 import { Router } from "express";
 import ratingController from "../controllers/rating-controller.js";
+import authMiddleware from "../middleware/auth-middleware.js";
 
 const ratingRouter = Router();
+
+ratingRouter.use(authMiddleware);
 
 // Ruta za dobijanje svih ocena (GET) i kreiranje nove ocene (POST)
 ratingRouter

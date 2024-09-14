@@ -6,63 +6,71 @@ import jwt from "jsonwebtoken";
 const userRepository = dbConfig.getRepository(User);
 
 async function login(user) {
-  user.password = crypto
-    .createHash("md5")
-    .update(user.raw_password)
-    .digest("hex");
+  try {
+    user.password = crypto
+      .createHash("md5")
+      .update(user.raw_password)
+      .digest("hex");
 
-  const loggedUser = await userRepository.findOne({
-    where: {
-      email: user.email,
-      password: user.password,
-    },
-  });
-
-  const { role } = loggedUser;
-
-  if (loggedUser) {
-    const token = jwt.sign(
-      {
+    const loggedUser = await userRepository.findOne({
+      where: {
         email: user.email,
-        role,
+        password: user.password,
       },
-      "secret",
-      {
-        algorithm: "HS256",
-        expiresIn: "1h",
-      }
-    );
+    });
 
-    return { success: true, token };
-  } else return { success: false };
+    const { role } = loggedUser;
+
+    if (loggedUser) {
+      const token = jwt.sign(
+        {
+          email: user.email,
+          role,
+        },
+        "secret",
+        {
+          algorithm: "HS256",
+          expiresIn: "1h",
+        }
+      );
+
+      return { success: true, token };
+    } else return { success: false };
+  } catch {
+    return { success: false };
+  }
 }
 
 // Auth methods
 async function register(user) {
-  // hash password - security measures
-  user.password = crypto
-    .createHash("md5")
-    .update(user.raw_password)
-    .digest("hex");
+  try {
+    // hash password - security measures
+    user.password = crypto
+      .createHash("md5")
+      .update(user.raw_password)
+      .digest("hex");
 
-  const result = await userRepository.insert(user);
-  const { role } = user;
+    const result = await userRepository.insert(user);
+    const { role } = user;
 
-  if (result.raw.affectedRows > 0) {
-    const token = jwt.sign(
-      {
-        email: user.email,
-        role,
-      },
-      "secret",
-      {
-        algorithm: "HS256",
-        expiresIn: "1h",
-      }
-    );
+    if (result.raw.affectedRows > 0) {
+      const token = jwt.sign(
+        {
+          email: user.email,
+          role,
+        },
+        "secret",
+        {
+          algorithm: "HS256",
+          expiresIn: "1h",
+        }
+      );
 
-    return { success: true, token };
-  } else return { success: false };
+      return { success: true, token };
+    } else return { success: false };
+  } catch {
+    return { success: false };
+  }
 }
 
 // CRUD methods

@@ -1,7 +1,10 @@
 import { Router } from "express";
 import appointmentController from "../controllers/appointment-controller.js";
+import authMiddleware from "../middleware/auth-middleware.js";
 
 const appointmentRouter = Router();
+
+appointmentRouter.use(authMiddleware);
 
 // Ruta za dobijanje svih termina i kreiranje novog termina
 appointmentRouter

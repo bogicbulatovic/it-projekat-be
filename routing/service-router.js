@@ -1,7 +1,10 @@
 import { Router } from "express";
 import serviceController from "../controllers/service-controller.js";
+import authMiddleware from "../middleware/auth-middleware.js";
 
 const serviceRouter = Router();
+
+serviceRouter.use(authMiddleware);
 
 serviceRouter
   .route("")

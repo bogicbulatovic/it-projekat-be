@@ -1,8 +1,11 @@
 import { Router } from "express";
 import userController from "../controllers/user-controller.js";
 import adminMiddleware from "../middleware/admin-middleware.js";
+import authMiddleware from "../middleware/auth-middleware.js";
 
 const userRouter = Router();
+
+userRouter.use(authMiddleware);
 
 userRouter
   .route("")

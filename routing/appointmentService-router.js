@@ -1,7 +1,10 @@
 import { Router } from "express";
 import appointmentServiceController from "../controllers/appointmentService-controller.js";
+import authMiddleware from "../middleware/auth-middleware.js";
 
 const appointmentServiceRouter = Router();
+
+appointmentServiceRouter.use(authMiddleware);
 
 appointmentServiceRouter
   .route("")
