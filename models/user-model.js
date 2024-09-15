@@ -32,6 +32,11 @@ export default new EntitySchema({
       enum: ["admin", "dentist", "patient"],
       nullable: false,
     },
+    profile_img: {
+      type: "varchar",
+      length: 255,
+      nullable: true,
+    },
     created_at: {
       type: "timestamp",
       default: () => "CURRENT_TIMESTAMP",

@@ -1,4 +1,5 @@
 import userRepository from "../repositories/user-repository.js";
+import { uploadProfileImg } from "./utils.js";
 
 async function login(request, response) {
   const result = await userRepository.login(request.body);
@@ -54,6 +55,7 @@ export default {
   getAllDentists,
   getUserById,
   createUser,
+  uploadProfileImg,
   updateUser,
   removeUser,
 };

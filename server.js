@@ -12,9 +12,11 @@ const app = express();
 app.use(express.json());
 
 import cors from "cors";
+import userController from "./controllers/user-controller.js";
 
 app.use(cors());
 
+app.use(express.urlencoded({ extended: true }));
 // Routers
 app.use("/", authRouter);
 app.use("/services", serviceRouter);
@@ -22,6 +24,10 @@ app.use("/ratings", ratingRouter);
 app.use("/users", userRouter);
 app.use("/appointments", appointmentRouter);
 app.use("/appointment-services", appointmentServiceRouter);
+
+app.post("/upload-profile-img", userController.uploadProfileImg);
+// Serve static files from the uploads folder
+app.use("/uploads", express.static("uploads"));
 
 // Error-handling middleware
 app.use((err, req, res, next) => {
