@@ -23,6 +23,19 @@ app.use("/users", userRouter);
 app.use("/appointments", appointmentRouter);
 app.use("/appointment-services", appointmentServiceRouter);
 
+// Error-handling middleware
+app.use((err, req, res, next) => {
+  if (err) {
+    console.error(err.stack); // Log the error stack trace for debugging
+
+    // Set response status code and send the error message
+    res.status(500).json({
+      message: err.message || "Internal Server Error",
+      stack: process.env.NODE_ENV === "development" ? err.stack : {}, // Only show stack in development
+    });
+  }
+});
+
 dbConfig
   .initialize()
   .then(() => {

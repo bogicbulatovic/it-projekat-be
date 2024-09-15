@@ -36,7 +36,8 @@ async function login(user) {
 
       return { success: true, token, role };
     } else return { success: false };
-  } catch {
+  } catch (err) {
+    console.error(err);
     return { success: false };
   }
 }
@@ -68,7 +69,8 @@ async function register(user) {
 
       return { success: true, token };
     } else return { success: false };
-  } catch {
+  } catch (err) {
+    console.error(err);
     return { success: false };
   }
 }
