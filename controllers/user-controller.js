@@ -14,6 +14,11 @@ async function register(request, response) {
   else response.send(result);
 }
 
+async function getAllDentists(request, response) {
+  const allUsers = await userRepository.getAll();
+
+  response.send(allUsers.filter((u) => u.role === "dentist"));
+}
 async function getAllUsers(request, response) {
   const allUsers = await userRepository.getAll();
   response.send(allUsers);
@@ -46,6 +51,7 @@ export default {
   login,
   register,
   getAllUsers,
+  getAllDentists,
   getUserById,
   createUser,
   updateUser,

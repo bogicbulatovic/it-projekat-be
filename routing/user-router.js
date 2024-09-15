@@ -12,6 +12,8 @@ userRouter
   .get(adminMiddleware, userController.getAllUsers)
   .post(adminMiddleware, userController.createUser);
 
+userRouter.get("/dentistsAll", userController.getAllDentists);
+
 userRouter
   .route("/:id")
   .get(adminMiddleware, userController.getUserById)
