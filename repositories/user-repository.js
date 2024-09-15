@@ -34,7 +34,7 @@ async function login(user) {
         }
       );
 
-      return { success: true, token };
+      return { success: true, token, role };
     } else return { success: false };
   } catch {
     return { success: false };
