@@ -19,13 +19,14 @@ async function login(user) {
       },
     });
 
-    const { role } = loggedUser;
+    const { role, id, profile_img, name } = loggedUser;
 
     if (loggedUser) {
       const token = jwt.sign(
         {
           email: user.email,
           role,
+          id,
         },
         "secret",
         {
@@ -34,7 +35,7 @@ async function login(user) {
         }
       );
 
-      return { success: true, token, role };
+      return { success: true, token, role, profile_img, name };
     } else return { success: false };
   } catch (err) {
     console.error(err);
